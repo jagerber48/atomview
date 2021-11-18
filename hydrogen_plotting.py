@@ -88,7 +88,7 @@ def generate_orbital_contour_plot(n, l, m, prob_threshold_list=(0.6,),  # noqa
         return plotter
 
     if show:
-        plotter.show()
+        plotter.show(jupyter_backend='static')
     else:
         return plotter
 
@@ -144,6 +144,6 @@ def generate_orbital_volume_plot(n, l, m,  # noqa
         return plotter
 
     if show:
-        plotter.show()
+        plotter.show(jupyter_backend='static')
     else:
         return plotter

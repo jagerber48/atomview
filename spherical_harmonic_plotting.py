@@ -30,24 +30,19 @@ def get_sph_harm_mesh(l, m, n_steps=101, real_version=False, radius_from_mag=Tru
     return mesh_grid
 
 
-def plot_sph_harm_mesh(sph_harm_mesh, show=True, plotter=None, notebook=False, show_grid=False, **kwargs):
+def plot_sph_harm_mesh_3d(sph_harm_mesh, show=True, plotter=None, notebook=False, show_grid=False, **kwargs):
 
     if plotter is None:
         plotter = pv.Plotter(notebook=notebook)
 
-    # for position in [(2, 0, 0), (0, 2, 0), (0, 0, 2),
-    #                  (-2, 0, 0), (0, -2, 0), (0, 0, -2)]:
-    #     light = pv.Light(position=position, intensity=0.2, positional=False)
-    #     plotter.add_light(light, only_active=True)
-
     plotter.add_mesh(sph_harm_mesh, scalars='color_map', rgb=True,
-                     specular=1, diffuse=1, ambient=0.3, smooth_shading=True,
+                     specular=0, diffuse=1, ambient=0.3, smooth_shading=True,
                      **kwargs)
 
     if show_grid:
         plotter.show_grid()
     if show:
-        plotter.show(auto_close=True, interactive=True)
+        plotter.show(auto_close=True, interactive=True, jupyter_backend='static')
     return plotter
 
 
@@ -59,7 +54,7 @@ def plot_sph_harm_mesh_2d(sph_harm_mesh, show=True, ax=None, **kwargs):
     ny = sph_harm_mesh.dimensions[1]
     color_map = sph_harm_mesh['color_map'].reshape([nx, ny, 3], order='F')
 
-    ax.imshow(color_map, extent=[0, 2, 0, 1], aspect=2, **kwargs)
+    ax.imshow(color_map, extent=[0, 2, 1, 0], aspect=2, **kwargs)
     ax.grid(False)
     ax.set_xlabel('$\\phi$')
     ax.set_ylabel('$\\theta$')

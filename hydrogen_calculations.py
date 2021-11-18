@@ -56,6 +56,8 @@ def sph_harm_real(ylm, m):
     elif m > 0:
         return np.sqrt(2) * (-1) ** m * np.real(ylm)
     elif m < 0:
+        # Convert ylm to yl|m| before taking imaginary part. Be careful with Condon-Shortley Phase
+        ylm = (-1)**m * np.conj(ylm)
         return np.sqrt(2) * (-1) ** m * np.imag(ylm)
 
 
