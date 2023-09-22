@@ -4,7 +4,7 @@ from scipy.special import sph_harm as sph_harm_scipy
 from scipy.special import factorial, lpmv
 
 
-def sph_harm_cartesian(x, y, z, l, m, use_scipy=False,
+def sph_harm_cartesian(x, y, z, l, m, use_scipy=False,  # noqa
                        r=None):
     rho_squared = x ** 2 + y ** 2
     if r is None:

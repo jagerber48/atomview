@@ -14,13 +14,13 @@ def get_prefactor(n, l, atomic_number=1):  # noqa
     return factor_1 * factor_2
 
 
-def get_radial_part(n, l, r, atomic_number=1):
+def get_radial_part(n, l, r, atomic_number=1):  # noqa
     rho = 2 * r * atomic_number / (n * a0)
     return np.exp(-rho / 2) * rho ** l * genlaguerre(n - l - 1, 2 * l + 1)(rho)
 
 
 def get_atomic_wavefunction(x, y, z,
-                            n, l, m,
+                            n, l, m,  # noqa
                             atomic_number=1,
                             real=False):
     prefactor = get_prefactor(n, l, atomic_number)
@@ -62,7 +62,7 @@ def get_psi_squared_threshold_val(psi_squared, dv, prob_enclosed_list):
     return psi_squared_thresh_list
 
 
-def get_wavefunction_prob_contour_mesh(n, l, m, real=False,
+def get_wavefunction_prob_contour_mesh(n, l, m, real=False,  # noqa
                                        num_pts=50,
                                        prob_threshold_list=(0.6,),
                                        mag_maps_to='',
@@ -105,41 +105,32 @@ def get_wavefunction_prob_contour_mesh(n, l, m, real=False,
                      & (phi < np.pi/2)
                      & (theta < np.pi/2)).ravel(order='F')
 
-        if clip_ghost:
-            ghost_clip_mask = ((phi > 0)
-                               & (phi > np.pi / 2)
-                               & (theta > np.pi / 2)).ravel(order='F')
-
-            ghost_mesh = mesh.copy()
-            ghost_mesh['psi_squared'][ghost_clip_mask] = 0
-            ghost_mesh['rgba'][:, 3] = ghost_opacity
-            ghost_contour_mesh = ghost_mesh.contour(psi_squared_thresh_list,
-                                                    scalars='psi_squared')
-
         mesh['psi_squared'][clip_mask] = 0
 
     contour_mesh = mesh.contour(psi_squared_thresh_list,
                                 scalars='psi_squared')
 
     if clip and clip_ghost:
+        ghost_clip_mask = ((phi > 0)
+                           & (phi > np.pi / 2)
+                           & (theta > np.pi / 2)).ravel(order='F')
+
+        ghost_mesh = mesh.copy()
+        ghost_mesh['psi_squared'][ghost_clip_mask] = 0
+        ghost_mesh['rgba'][:, 3] = ghost_opacity
+        ghost_contour_mesh = ghost_mesh.contour(psi_squared_thresh_list,
+                                                scalars='psi_squared')
+
         return contour_mesh, ghost_contour_mesh
     else:
         return contour_mesh
 
 
-def get_wavefunction_volume_mesh(n, l, m, real=False,
+def get_wavefunction_volume_mesh(n, l, m, real=False,  # noqa
                                  num_pts=50,
                                  max_opacity=0.2,
                                  clip=False):
     span = (1.5 * n) ** 2
-
-    single_ax_array = np.sinh(
-        np.linspace(
-            np.arcsinh(-span),
-            np.arcsinh(span),
-            num_pts
-        )
-    )
 
     single_ax_array = np.linspace(
             -span,
