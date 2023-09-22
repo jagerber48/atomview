@@ -174,37 +174,3 @@ def get_wavefunction_volume_mesh(n, l, m, real=False,
     mesh['rgba'] = rgba_uint8.reshape((psi.size, 4), order='F')
 
     return mesh
-
-
-def main():
-    (n, l, m) = (2, 1, 1)
-    real = True
-
-    contour_mesh = get_wavefunction_prob_contour_mesh(
-        n, l, m, real=real, num_pts=150,
-        prob_threshold_list=(0.5,),
-        mag_maps_to='',
-        clip=False)
-    volume_mesh = get_wavefunction_volume_mesh(
-        n, l, m, real=real, num_pts=100, max_opacity=0.4, clip=False
-    )
-
-    pl = pv.Plotter()
-    pl.set_background('black')
-    # pl.add_mesh(
-    #     contour_mesh,
-    #     scalars='rgba',
-    #     rgb=True,
-    #     specular=1,
-    #     diffuse=1,
-    #     ambient=0.3)
-    pl.add_volume(
-        volume_mesh,
-        scalars='rgba',
-        mapper='gpu'
-    )
-    pl.show()
-
-
-if __name__ == "__main__":
-    main()
