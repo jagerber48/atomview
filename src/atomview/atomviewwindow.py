@@ -3,7 +3,7 @@ import sys
 from PyQt6 import QtWidgets, QtCore
 from pyvistaqt import MainWindow
 
-from ui_atomviewwindow import Ui_AtomViewWindow
+from atomview.ui_atomviewwindow import Ui_AtomViewWindow
 from atomview.atom_wavefunction import get_wavefunction_prob_contour_mesh, \
     get_wavefunction_volume_mesh
 

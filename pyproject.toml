@@ -19,7 +19,10 @@ dynamic = ["version", "readme"]
 dependencies = [
   'numpy',
   'scipy',
+  'matplotlib',
+  'pyqt6',
   'pyvista',
+  'pyvistaqt'
 ]
 
 [project.urls]

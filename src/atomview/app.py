@@ -10,7 +10,7 @@ def run():
 
     # Code to setup windows icon for jkam
     # app.setWindowIcon(QIcon('package/imagedata/favicon.ico'))
-    myappid = u'jkam_app'  # arbitrary string
+    myappid = u'atomview_app'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
     ex = AtomViewWindow()
