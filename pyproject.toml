@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atomview"
+authors = [
+    {name = "Justin Gerber", email="justin.gerber48@gmail.com"}
+]
+description = "A package for visualizing atomic orbitals."
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9"
+]
+dynamic = ["version", "readme"]
+dependencies = [
+  'numpy',
+  'scipy',
+  'pyvista',
+]
+
+[project.urls]
+homepage = "https://github.com/jagerber48/hydrogen_visualization"
+
+[tool.setuptools.dynamic]
+readme = {file = "README.rst"}
+
+[tool.setuptools_scm]
