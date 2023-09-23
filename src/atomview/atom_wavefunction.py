@@ -136,6 +136,7 @@ def get_wavefunction_prob_contour_mesh(n, l, m, real=False,  # noqa
 def get_wavefunction_volume_mesh(n, l, m, real=False,  # noqa
                                  num_pts=50,
                                  max_opacity=0.2,
+                                 opacity_exp=1.0,
                                  clip=False):
     span = (1.5 * n) ** 2
 
@@ -163,6 +164,7 @@ def get_wavefunction_volume_mesh(n, l, m, real=False,  # noqa
     )
 
     rgba[:, :, :, 3] *= max_opacity
+    rgba[:, :, :, 3] **= opacity_exp
     rgba_uint8 = (255 * rgba).astype(np.uint8)
 
     mesh = pv.RectilinearGrid(single_ax_array,

@@ -31,6 +31,8 @@ class AtomViewWindow(MainWindow):
         self.cutout = self.ui.cutout_checkBox.isChecked()
         self.vis_mode = self.get_vis_mode()
         self.contour_prob_threshold = float(self.ui.enclosed_prob_lineEdit.text())
+        self.max_opacity = round(float(self.ui.max_opacity_lineEdit.text()), 2)
+        self.opacity_exp = round(float(self.ui.opacity_exponent_lineEdit.text()), 2)
 
         self.ui.plotter.camera.position = (10, 10, 10)
         self.ui.plotter.set_background('black')
@@ -46,6 +48,12 @@ class AtomViewWindow(MainWindow):
         self.ui.mode_tabWidget.currentChanged.connect(self.update_vis_mode)
         self.ui.enclosed_prob_lineEdit.editingFinished.connect(
             self.contour_prob_threshold_updated
+        )
+        self.ui.max_opacity_lineEdit.editingFinished.connect(
+            self.max_opacity_updated
+        )
+        self.ui.opacity_exponent_lineEdit.editingFinished.connect(
+            self.opacity_exp_updated
         )
         self.show()
 
@@ -71,6 +79,38 @@ class AtomViewWindow(MainWindow):
             self.ui.enclosed_prob_lineEdit.setText(
                 f'{self.contour_prob_threshold:.2f}')
 
+    def max_opacity_updated(self):
+        try:
+            new_max_opacity = round(
+                float(self.ui.max_opacity_lineEdit.text()), 2
+            )
+            if new_max_opacity <= 0:
+                raise ValueError
+        except ValueError:
+            pass
+        else:
+            self.max_opacity = new_max_opacity
+            self.update_mesh()
+        finally:
+            self.ui.max_opacity_lineEdit.setText(
+                f'{self.max_opacity:.2f}')
+
+    def opacity_exp_updated(self):
+        try:
+            new_opacity_exp = round(
+                float(self.ui.opacity_exponent_lineEdit.text()), 2
+            )
+            if new_opacity_exp <= 0:
+                raise ValueError
+        except ValueError:
+            pass
+        else:
+            self.opacity_exp = new_opacity_exp
+            self.update_mesh()
+        finally:
+            self.ui.opacity_exponent_lineEdit.setText(
+                f'{self.opacity_exp:.2f}')
+
     def update_vis_mode(self):
         self.vis_mode = self.get_vis_mode()
         self.update_mesh()
@@ -90,7 +130,8 @@ class AtomViewWindow(MainWindow):
         elif self.vis_mode is VisMode.VOLUME:
             mesh = get_wavefunction_volume_mesh(self.n, self.l, self.m,
                                                 num_pts=100, real=self.real,
-                                                max_opacity=1)
+                                                max_opacity=self.max_opacity,
+                                                opacity_exp=self.opacity_exp)
             self.ui.plotter.add_volume(mesh, scalars='rgba', mapper='gpu')
         else:
             raise NotImplementedError

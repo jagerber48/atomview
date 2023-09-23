@@ -323,7 +323,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>0.5</string>
+                 <string>0.50</string>
                 </property>
                </widget>
               </item>
@@ -347,11 +347,14 @@
             </item>
             <item>
              <widget class="QCheckBox" name="cutout_checkBox">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="text">
                <string>Cutout</string>
               </property>
               <property name="checked">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -391,8 +394,14 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>40</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>1.0</string>
+                 <string>1.00</string>
                 </property>
                </widget>
               </item>
@@ -421,8 +430,14 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>40</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="text">
-                 <string>1</string>
+                 <string>1.00</string>
                 </property>
                </widget>
               </item>
