@@ -10,7 +10,7 @@ from atomview.atomviewwindow import AtomViewWindow
 def run():
     app = QApplication(sys.argv)
 
-    app.setWindowIcon(QIcon('icon/favicon-32x32.png'))
+    app.setWindowIcon(QIcon('icon/favicon.ico'))
     myappid = u'atomview_app'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
