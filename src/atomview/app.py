@@ -1,7 +1,6 @@
 import sys
 import ctypes
 
-from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
 from atomview.atomviewwindow import AtomViewWindow
