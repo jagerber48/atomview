@@ -1,3 +1,5 @@
+from warnings import warn
+
 import numpy as np
 from scipy.special import genlaguerre, factorial
 import pyvista as pv
@@ -48,7 +50,7 @@ def get_atomic_wavefunction(x, y, z,
 
 def get_psi_squared_threshold_val(psi_squared, dv, prob_enclosed_list):
 
-    sort_index = np.argsort(psi_squared.ravel())
+    sort_index = np.argsort(psi_squared.ravel())[::-1]
 
     sorted_psi_squared = psi_squared.ravel()[sort_index]
     sorted_dv = dv.ravel()[sort_index]
@@ -57,6 +59,11 @@ def get_psi_squared_threshold_val(psi_squared, dv, prob_enclosed_list):
     psi_squared_thresh_list = []
     for prob_enclosed in prob_enclosed_list:
         idx = np.searchsorted(integrated_prob, prob_enclosed)
+        if idx >= len(sorted_psi_squared):
+            warn(f'Requested enclosed probability ({prob_enclosed:.2f}) is '
+                 f'greater than the total enclosed probability '
+                 f'({integrated_prob[-1]:.2f}).')
+            idx = len(sorted_psi_squared) - 1
         psi_squared_threshold = sorted_psi_squared[idx]
         psi_squared_thresh_list.append(psi_squared_threshold)
     return psi_squared_thresh_list
