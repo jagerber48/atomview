@@ -24,12 +24,13 @@ class AtomViewWindow(MainWindow):
 
         self.signal_close.connect(self.ui.plotter.close)
 
-        self.n = 1
-        self.l = 0
-        self.m = 0
+        self.n = int(self.ui.n_comboBox.currentText())
+        self.l = int(self.ui.l_comboBox.currentText())
+        self.m = int(self.ui.m_comboBox.currentText())
         self.real = self.ui.real_radioButton.isChecked()
         self.cutout = self.ui.cutout_checkBox.isChecked()
         self.vis_mode = self.get_vis_mode()
+        self.contour_prob_threshold = float(self.ui.enclosed_prob_lineEdit.text())
 
         self.ui.plotter.camera.position = (10, 10, 10)
         self.ui.plotter.set_background('black')
@@ -43,7 +44,9 @@ class AtomViewWindow(MainWindow):
         self.ui.cutout_checkBox.stateChanged.connect(self.update_cutout)
 
         self.ui.mode_tabWidget.currentChanged.connect(self.update_vis_mode)
-
+        self.ui.enclosed_prob_lineEdit.editingFinished.connect(
+            self.contour_prob_threshold_updated
+        )
         self.show()
 
     def get_vis_mode(self):
@@ -53,6 +56,20 @@ class AtomViewWindow(MainWindow):
             return VisMode.VOLUME
         else:
             raise ValueError
+
+    def contour_prob_threshold_updated(self):
+        try:
+            new_threshold = round(
+                float(self.ui.enclosed_prob_lineEdit.text()), 2
+            )
+        except ValueError:
+            pass
+        else:
+            self.contour_prob_threshold = new_threshold
+            self.update_mesh()
+        finally:
+            self.ui.enclosed_prob_lineEdit.setText(
+                f'{self.contour_prob_threshold:.2f}')
 
     def update_vis_mode(self):
         self.vis_mode = self.get_vis_mode()
@@ -64,6 +81,7 @@ class AtomViewWindow(MainWindow):
 
         if self.vis_mode is VisMode.CONTOUR:
             mesh = get_wavefunction_prob_contour_mesh(self.n, self.l, self.m,
+                                                      prob_threshold_list=[self.contour_prob_threshold],
                                                       num_pts=100,
                                                       real=self.real,
                                                       clip=self.cutout)
