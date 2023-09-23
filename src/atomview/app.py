@@ -1,5 +1,7 @@
 import sys
 import ctypes
+
+from PyQt6.QtCore import QSize
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
 from atomview.atomviewwindow import AtomViewWindow
@@ -8,8 +10,7 @@ from atomview.atomviewwindow import AtomViewWindow
 def run():
     app = QApplication(sys.argv)
 
-    # Code to setup windows icon for jkam
-    # app.setWindowIcon(QIcon('package/imagedata/favicon.ico'))
+    app.setWindowIcon(QIcon('icon/favicon-32x32.png'))
     myappid = u'atomview_app'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 

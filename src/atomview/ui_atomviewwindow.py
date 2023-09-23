@@ -120,7 +120,7 @@ class Ui_AtomViewWindow(object):
 
     def retranslateUi(self, AtomViewWindow):
         _translate = QtCore.QCoreApplication.translate
-        AtomViewWindow.setWindowTitle(_translate("AtomViewWindow", "MainWindow"))
+        AtomViewWindow.setWindowTitle(_translate("AtomViewWindow", "AtomView"))
         self.label.setText(_translate("AtomViewWindow", "n"))
         self.n_comboBox.setItemText(0, _translate("AtomViewWindow", "1"))
         self.n_comboBox.setItemText(1, _translate("AtomViewWindow", "2"))
