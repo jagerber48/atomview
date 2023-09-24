@@ -120,13 +120,23 @@ class AtomViewWindow(MainWindow):
         self.ui.plotter.clear_actors()
 
         if self.vis_mode is VisMode.CONTOUR:
-            mesh = get_wavefunction_prob_contour_mesh(self.n, self.l, self.m,
-                                                      prob_threshold_list=[self.contour_prob_threshold],
-                                                      num_pts=100,
-                                                      real=self.real,
-                                                      clip=self.cutout)
-            self.ui.plotter.add_mesh(mesh, scalars='rgba', rgb=True,
-                                     specular=1, diffuse=1, ambient=0.3)
+            mesh = get_wavefunction_prob_contour_mesh(
+                self.n, self.l, self.m,
+                prob_threshold_list=[self.contour_prob_threshold],
+                num_pts=100,
+                real=self.real,
+                clip=self.cutout)
+            try:
+                self.ui.plotter.add_mesh(
+                    mesh, scalars='rgba', rgb=True,
+                    specular=1, diffuse=1, ambient=0.3)
+            except ValueError:
+                self.ui.plotter.add_text('Empty mesh.\n'
+                                         'Choose a threshold\n'
+                                         'further away from 0 or 1.',
+                                         font_size=12,
+                                         color='red',
+                                         position='lower_edge')
         elif self.vis_mode is VisMode.VOLUME:
             mesh = get_wavefunction_volume_mesh(self.n, self.l, self.m,
                                                 num_pts=100, real=self.real,
