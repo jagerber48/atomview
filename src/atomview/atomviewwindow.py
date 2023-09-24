@@ -70,6 +70,8 @@ class AtomViewWindow(MainWindow):
             new_threshold = round(
                 float(self.ui.enclosed_prob_lineEdit.text()), 2
             )
+            if not 0 < new_threshold < 1:
+                raise ValueError
         except ValueError:
             pass
         else:
