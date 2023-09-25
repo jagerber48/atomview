@@ -55,7 +55,6 @@ class AtomViewWindow(MainWindow):
         self.ui.opacity_exponent_lineEdit.editingFinished.connect(
             self.opacity_exp_updated
         )
-        self.show()
 
     def get_vis_mode(self):
         if self.ui.mode_tabWidget.currentIndex() == 0:

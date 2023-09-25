@@ -1,5 +1,6 @@
 import sys
 import ctypes
+from pathlib import Path
 
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
@@ -7,13 +8,23 @@ from atomview.atomviewwindow import AtomViewWindow
 
 
 def run():
-    app = QApplication(sys.argv)
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except AttributeError as e:
+        print(e)
+        base_path = Path.cwd()
 
-    app.setWindowIcon(QIcon('icon/favicon.ico'))
+    app = QApplication([])
+
+    icon_path = str(Path(base_path, 'icon/favicon.ico'))
+    app.setWindowIcon(QIcon(icon_path))
     myappid = u'atomview_app'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 
-    ex = AtomViewWindow()
+    window = AtomViewWindow()
+    window.show()
+
     app.exec()
 
 
