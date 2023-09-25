@@ -1,15 +1,20 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+from pathlib import Path
+import cmocean
+
 
 block_cipher = None
 
+cmocean_rbg_path = str(Path(Path(cmocean.__file__).parent, 'rgb'))
+datas = [(cmocean_rbg_path, 'cmocean\\rgb'),
+         ('src\\atomview\\icon\\favicon.ico', 'icon')]
 
 a = Analysis(
     ['src\\atomview\\app.py'],
     pathex=[],
     binaries=[],
-    datas=[('.venv\\Lib\\site-packages\\cmocean\\rgb\\*', 'cmocean\\rgb'),
-           ('src\\atomview\\icon\\favicon.ico', 'icon')],
+    datas=datas,
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
