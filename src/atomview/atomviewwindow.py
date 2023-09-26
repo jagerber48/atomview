@@ -1,6 +1,6 @@
 from enum import Enum
 
-from PyQt6 import QtWidgets, QtCore
+from PyQt6 import QtCore
 from pyvistaqt import MainWindow
 
 from atomview.ui_atomviewwindow import Ui_AtomViewWindow
