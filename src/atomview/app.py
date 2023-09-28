@@ -4,7 +4,7 @@ from pathlib import Path
 
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
-from atomview.atomviewwindow import AtomViewWindow
+from ui.atomviewwindow import AtomViewWindow
 
 
 def run():
