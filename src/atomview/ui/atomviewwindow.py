@@ -1,5 +1,4 @@
 from enum import Enum
-from functools import partial
 
 from PyQt6 import QtCore
 from pyvistaqt import MainWindow
