@@ -1,12 +1,10 @@
-.. atomview documentation master file, created by
-   sphinx-quickstart on Tue Sep 26 01:27:46 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. include:: ../../README.rst
 
 Welcome to atomview's documentation!
 ====================================
 
-`$$\int$$`
+test :math:`\int`
+
 
 .. math::
 

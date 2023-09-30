@@ -19,7 +19,7 @@ release = version
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = ['sphinx.ext.imgmath',
-              'sphinx.ext.mathjax']
+              'sphinx.ext.todo']
 
 templates_path = ['_templates']
 exclude_patterns = []
