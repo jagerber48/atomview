@@ -221,7 +221,7 @@ class AtomViewWindow(MainWindow):
             try:
                 self.ui.plotter.add_mesh(
                     mesh, scalars='rgba', rgb=True,
-                    specular=1, diffuse=1, ambient=0.3)
+                    specular=0, diffuse=1, ambient=0.3)
             except ValueError:
                 self.ui.plotter.add_text(
                     'Empty mesh.\n'
@@ -234,7 +234,7 @@ class AtomViewWindow(MainWindow):
             try:
                 self.ui.plotter.add_mesh(
                     mesh, scalars='rgba', rgb=True,
-                    specular=1, diffuse=1, ambient=0.3)
+                    specular=0, diffuse=1, ambient=0.3)
             except ValueError:
                 self.ui.plotter.add_text(
                     'Empty mesh.\n'
