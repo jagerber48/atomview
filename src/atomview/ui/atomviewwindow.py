@@ -17,8 +17,8 @@ class VisMode(Enum):
 class MeshWorker(QtCore.QObject):
     mesh_ready_signal = QtCore.pyqtSignal(object, object)
 
-    def __init__(self, plotter, parent=None):
-        super().__init__(parent)
+    def __init__(self):
+        super().__init__()
         self.thread = QtCore.QThread()
         self.moveToThread(self.thread)
         self.thread.start()
@@ -119,11 +119,15 @@ class AtomViewWindow(MainWindow):
             spinbox.editingFinished.connect(
                 self.multi_contour_prob_threshold_updated)
 
-        self.mesh_worker = MeshWorker(self.ui.plotter)
+        self.mesh_worker = MeshWorker()
         self.mesh_worker_signal.connect(self.mesh_worker.gen_mesh_and_plot)
         self.mesh_worker.mesh_ready_signal.connect(self.plot_new_mesh)
 
         self.request_new_mesh()
+
+    def closeEvent(self, event):
+        self.mesh_worker.thread.terminate()
+        super().closeEvent(event)
 
     def mc_checkbox_0_toggled(self):
         self.ui.mc_doubleSpinBox_0.setEnabled(
@@ -201,7 +205,6 @@ class AtomViewWindow(MainWindow):
         elif self.ui.volume_radioButton.isChecked():
             self.vis_mode = VisMode.VOLUME
             self.ui.mode_stackedWidget.setCurrentIndex(2)
-        self.repaint()
         self.request_new_mesh()
 
     def request_new_mesh(self):
