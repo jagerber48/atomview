@@ -215,7 +215,6 @@ class AtomViewWindow(MainWindow):
                                      self.opacity_exp)
 
     def plot_new_mesh(self, mesh, vis_mode):
-        camera_position = self.ui.plotter.camera.position
         self.ui.plotter.clear_actors()
         if vis_mode is VisMode.CONTOUR:
             try:
