@@ -13,7 +13,7 @@ Overview
 real atomic orbitals and includes probability contour, multi-probability
 contour, and volume density visualizations of the 3D atomic orbitals.
 
-.. figure:: ../../scripts/figures/docs_figs/multi_view_3d_320.png
+.. figure:: scripts/figures/docs_figs/multi_view_3d_320.png
     :align: center
     :width: 400
 
