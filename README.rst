@@ -13,15 +13,16 @@ Overview
 real atomic orbitals and includes probability contour, multi-probability
 contour, and volume density visualizations of the 3D atomic orbitals.
 
-.. figure:: ../../scripts/figures/docs_figs/320_multi_view.png
-  :width: 400
+.. figure:: ../../scripts/figures/docs_figs/multi_view_3d_320.png
+    :align: center
+    :width: 400
 
-  ``atomview`` visualizations of the :math:`(n, l, m) = (3, 2, 0)`
-  orbital.
-  Left: solid contour visualization enclosing 50% probability.
-  Center: Transparent multi-contour visualization enclosing 20%, 50%,
-  and 80% probability.
-  Right: Transparent cloud volume visualization.
+    ``atomview`` visualizations of the :math:`(n, l, m) = (3, 2, 0)`
+    orbital.
+    Left: solid contour visualization enclosing 50% probability.
+    Center: Transparent multi-contour visualization enclosing 20%, 50%,
+    and 80% probability.
+    Right: Transparent cloud volume visualization.
 
 ============
 Installation
@@ -117,7 +118,166 @@ Visualizing Atomic Orbitals
 
 `atomview` is dedicated to visualizing the Hydrogen atomic orbitals
 described above.
-It can be challenging to visualize complex-valued scalar function on 3D
-space but there are a few strategies we can use.
+It can be challenging to visualize a complex-valued scalar function on
+3D space but there are a few strategies we can use.
+In this section we will build up our understanding of different
+visualization techniques to build up to an understanding of the
+visualizations provided by `atomview`.
 
-The first strategy is to
+-----------------------------
+The :math:`(1, 0, 0)` orbital
+-----------------------------
+
+The simplest Hydrogen atomic orbital is the :math:`\psi_{1, 0, 0}`
+orbital.
+This wavefunction is given by
+
+.. math::
+
+    \psi_{1, 0, 0}(r, \theta, \phi) = \frac{1}{\sqrt{\pi} a_0^{3/2}} e^{-r/a_0}
+
+We see that this orbital is purely a function of :math:`r` with no
+angular :math:`\theta` or :math:`\phi` dependence.
+This means we can simply visualize it's behavior on a regular 1D plot:
+
+.. figure:: ../../scripts/figures/docs_figs/100_simple_1D.png
+    :align: center
+    :width: 400
+
+We see that the wavefunction is maximal at the origin and then the
+amplitude decreases exponentially as the radius increases.
+
+The next more sophisticated way we can visualize this wavefunction
+is by plotting the amplitude of the wavefunction on a 2D slice of space
+using a density plot where the brightness of the plot corresponds to the
+amplitude.
+
+.. figure:: ../../scripts/figures/docs_figs/simple_100_2d.png
+    :align: center
+    :width: 400
+
+In both the :math:`z` and :math:`y` slices the wavefunction appears as a
+circle that is bright at the middle and whose brightness decreases as
+the radius increases.
+This begins to show the spherical symmetry of this wavefunction.
+In fact, the wavefunction look the same no matter which 2D slice plane
+passing through the origin was chosen.
+
+Let us now consider 3D visualization techniques.
+First, we can visualize the wavefunction as a 3D cloud where each voxel
+of space is transparent, with an opacity proportional to the probability
+of finding a particle there.
+This is similar to viewing a regular cloud where the opacity of each
+voxel of space is proportional to the density of cloud-stuff in that
+region.
+
+.. figure:: ../../scripts/figures/docs_figs/simple_100_volume_3d.png
+    :align: center
+    :width: 400
+
+We see that this looks like a spherical cloud that is most dense in the
+center.
+
+We now turn to 3D iso-probability contour surface visualizations.
+If we have a wavefunction :math:`\psi` then the squared magnitude
+:math:`|\psi|^2` is related the probability of finding a particle at a
+given location.
+Suppose we pick a value :math:`p < \text{max}\left(|\psi|^2\right)`.
+There will be a closed and bounded 2D surface of points in 3D space
+which satisfy :math:`|\psi|^2 = p`.
+If we integrate up the probability contained inside this surface then
+can determine the probability :math:`P` that an electron is found inside
+the surface.
+
+.. math::
+
+    P = \int_{|\psi|^2 < p} |\psi|^2 dV
+
+For any chosen probability :math:`P` we can numerically determine the
+required value for :math:`p` such that the corresponding iso-probability
+contour :math:`|\psi|^2 = p` contains :math:`P` probability.
+Below we plot two types of iso-probability contour plots for the
+:math:`\psi_{1,0,0}` waveform.
+
+.. figure:: ../../scripts/figures/docs_figs/simple_100_contour_3d_plots.png
+    :align: center
+    :width: 400
+
+    Left: solid iso-probability contour plot for :math:`\psi_{1, 0, 0}`
+    corresponding to :math:`P=0.5`. Right: Multiple transparent
+    iso-probability contours for :math:`\psi_{1, 0, 0}` corresponding to
+    :math:`P=[0.2, 0.4, 0.6]`. Each iso-probability has an opacity equal
+    to the relative squared magnitude of the wavefunction on that
+    surface. This plot gives a similar effect to the volume desnity
+    plot.
+
+We will find that iso-probability contour surface visualizations can
+give us good intuitions for the general shape of an orbital even though
+they don't technically give us information about the value of the
+function at all points in 3D space.
+
+-----------------------------
+The :math:`(2, 1, 0)` orbital
+-----------------------------
+
+The next most complicated orbital is the :math:`(2, 1, 0)` orbital.
+This wavefunction is given by
+
+.. math::
+
+    \psi_{2, 1, 0} = \frac{\sqrt{2}}{8\sqrt{\pi}a_0^{3/2}}
+                     \left(r/a_0\right) e^{-\frac{1}{2}(r/a_0)}
+                     \cos(\theta)
+
+This orbital has a few important features beyond those of the
+:math:`\psi_{1, 0, 0}` orbital.
+The first is that it now has dependence on the polar angle
+:math:`\theta` given by :math:`\cos(\theta)` (though there is no
+dependence on the azimuthal angle :math:`\phi`).
+The second is that the wavefunction is positive in some regions of space
+(:math:`0 \le \theta < \pi/2`) and negative in others
+(:math:`\pi/2 < \theta <= \pi`).
+Below, we will introduce strategies to incorporate this information into
+our visualizations.
+
+First, as before, even though this wavefunction has angular dependence,
+we can still visualize the radial dependence on a 1D plot.
+
+.. figure:: ../../scripts/figures/docs_figs/radial_210_1d.png
+    :align: center
+    :width: 400
+
+We see that wavefunction is now zero at the origin, then has a finite
+lobe of amplitude before decaying exponentially at large radii.
+Note also that this wavefunction has a larger radial extent than the
+:math:`\psi_{1, 0, 0}` wavefunction.
+Indeed, the wavefunction radial extent scales as :math:`n^2`.
+
+We can again plot 2D density plots of :math:`z` and :math:`x` slices:
+
+.. figure:: ../../scripts/figures/docs_figs/density_2d_210.png
+    :align: center
+    :width: 400
+
+We see there is no density along the :math:`z=0` plane because this
+plane corresponds to :math:`\theta=\pi/2` and :math:`\cos(\pi/2)=0`.
+However, in the :math:`x=0` plane we now see two colors.
+We see red for :math:`\theta<\pi/2` where the wavefunction is positive,
+but we see that blue has been used for :math:`\theta>\pi/2` where the
+wavefunction is negative.
+We see there is a positive red lobe above the :math:`z=0` plane and a
+negative blue lobe below the :math:`z=0` plane.
+
+Finally, we can utilize the same three 3D visualization techniques from
+above, simply adopting the red/blue convention for positive/negative
+parts of the wavefunction.
+
+.. figure:: ../../scripts/figures/docs_figs/multi_view_3d_210.png
+    :align: center
+    :width: 400
+
+    Left: volume density visualization for :math:`\psi_{2,1,0}`.
+    Center: Solid iso-probability contour visualization for
+    :math:`\psi_{2, 1, 0}` corresponding to :math:`P=0.5`.
+    Right: Transparent iso-probability contour visualization for
+    :math:`\psi_{2, 1, 0}` corresponding to :math:`P=[0.2, 0.4, 0.6]`.

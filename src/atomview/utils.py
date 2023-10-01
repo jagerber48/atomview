@@ -39,7 +39,7 @@ def sph_harm_cartesian(x, y, z, l, m, use_scipy=False,  # noqa
     return sph_harm
 
 
-def complex_to_rgba(arr, mag_maps_to=''):
+def complex_to_rgba(arr, mag_maps_to='', zero_uniform_mag=False):
     h = (np.angle(arr) / (2 * np.pi)) % 1
     s = np.ones_like(arr, dtype=float)
     v = np.ones_like(arr, dtype=float)
@@ -47,11 +47,15 @@ def complex_to_rgba(arr, mag_maps_to=''):
 
     if mag_maps_to != '':
         mag = np.abs(arr)
+        if not zero_uniform_mag:
+            out = np.ones_like(mag)
+        else:
+            out = np.zeros_like(mag)
         scaled_mag = np.divide(
             mag - np.min(mag),
             np.max(mag) - np.min(mag),
             where=(np.max(mag) - np.min(mag) != 0),
-            out=np.ones_like(mag))
+            out=out)
         if 's' in mag_maps_to:
             s *= scaled_mag
         if 'v' in mag_maps_to:
