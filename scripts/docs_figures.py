@@ -320,6 +320,28 @@ def multi_view_3d_210_fig():
     pl.show(screenshot=Path(fig_dir, f'multi_view_3d_{n}{l}{m}.png'))
 
 
+def complex_colors():
+    x_1d = np.linspace(-1, 1, 200)
+    y_1d = np.linspace(-1, 1, 200)
+    x, y = np.meshgrid(x_1d, y_1d, indexing='xy')
+
+    z = x + 1j * y
+    rgba = complex_to_rgba(z, mag_maps_to='v')
+
+    fig, ax = plt.subplots(1, 1)
+
+    ax.imshow(rgba, origin='lower',
+              extent=[-1, 1, -1, 1])
+    ax.set_facecolor('black')
+    fig.set_facecolor('black')
+
+    fig.set_tight_layout(True)
+
+    fig.savefig(Path(fig_dir, 'complex_colors.png'))
+
+    plt.show()
+
+
 def main():
     fig_dir.mkdir(parents=True, exist_ok=True)
 
@@ -330,7 +352,8 @@ def main():
     # simple_100_contour_3d_plots()
     # radial_210_1d_fig()
     # density_2d_210_fig()
-    multi_view_3d_210_fig()
+    # multi_view_3d_210_fig()
+    complex_colors()
 
 
 if __name__ == "__main__":
