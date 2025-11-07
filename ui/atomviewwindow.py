@@ -3,9 +3,8 @@ from enum import Enum
 from PyQt6 import QtCore
 from pyvistaqt import MainWindow
 
-from atomview.ui.ui_atomviewwindow import Ui_AtomViewWindow
-from atomview.atom_wavefunction import get_wavefunction_prob_contour_mesh, \
-    get_wavefunction_volume_mesh
+from ui_atomviewwindow import Ui_AtomViewWindow
+from atomview.wavefunction_mesh import get_wavefunction_prob_contour_mesh, get_wavefunction_volume_mesh
 
 
 class VisMode(Enum):

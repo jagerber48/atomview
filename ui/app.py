@@ -4,7 +4,7 @@ from pathlib import Path
 
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
-from atomview.ui.atomviewwindow import AtomViewWindow
+from atomviewwindow import AtomViewWindow
 
 
 def run():
@@ -17,7 +17,7 @@ def run():
 
     app = QApplication([])
 
-    icon_path = str(Path(base_path, 'icon/favicon.ico'))
+    icon_path = str(Path(base_path, 'favicon.ico'))
     app.setWindowIcon(QIcon(icon_path))
     myappid = u'atomview_app'  # arbitrary string
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)

@@ -1,17 +1,11 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-from pathlib import Path
-import cmocean
-
-
 block_cipher = None
 
-cmocean_rbg_path = str(Path(Path(cmocean.__file__).parent, 'rgb'))
-datas = [(cmocean_rbg_path, 'cmocean\\rgb'),
-         ('src\\atomview\\icon\\favicon.ico', 'icon')]
+datas = [('ui\\favicon.ico', '.')]
 
 a = Analysis(
-    ['src\\atomview\\app.py'],
+    ['ui\\app.py'],
     pathex=[],
     binaries=[],
     datas=datas,
@@ -35,7 +29,7 @@ exe = EXE(
     a.datas,
     [],
     name='AtomView',
-    icon='src\\atomview\\icon\\favicon.ico',
+    icon='ui\\favicon.ico',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

@@ -1,51 +1,10 @@
 from warnings import warn
 
 import numpy as np
-from scipy.special import genlaguerre, factorial
 import pyvista as pv
 
-from atomview.utils import sph_harm_cartesian, complex_to_rgba
-
-a0 = 1
-
-def get_prefactor(n, l, atomic_number=1):  # noqa
-    factor_1 = (2 * atomic_number / (n * a0)) ** (3 / 2)
-    factor_2 = np.sqrt(
-        factorial(n - l - 1, exact=False)
-        / (2 * n * factorial(n + l, exact=False)))
-    return factor_1 * factor_2
-
-
-def get_radial_part(n, l, r, atomic_number=1):  # noqa
-    rho = 2 * r * atomic_number / (n * a0)
-    return np.exp(-rho / 2) * rho ** l * genlaguerre(n - l - 1, 2 * l + 1)(rho)
-
-
-def get_atomic_wavefunction(x, y, z,
-                            n, l, m,  # noqa
-                            atomic_number=1,
-                            real=False):
-    prefactor = get_prefactor(n, l, atomic_number)
-
-    r = np.sqrt(x**2 + y**2 + z**2)
-
-    if real:
-        calc_m = abs(m)
-    else:
-        calc_m = m
-
-    angular_factor = sph_harm_cartesian(x, y, z, l, calc_m, r=r)
-    radial_factor = get_radial_part(n, l, r, atomic_number)
-
-    psi = prefactor * radial_factor * angular_factor
-
-    if real:
-        if m > 0:
-            psi = np.sqrt(2) * (-1)**m * np.real(psi)
-        elif m < 0:
-            psi = np.sqrt(2) * (-1)**m * np.imag(psi)
-
-    return psi
+from atomview.utils import complex_to_rgba
+from atomview.wavefunction_calc import get_atomic_wavefunction
 
 
 def get_psi_squared_threshold_val(psi_squared, dv, prob_enclosed_list):
@@ -133,11 +92,16 @@ def get_wavefunction_prob_contour_mesh(n, l, m, real=False,  # noqa
         return contour_mesh
 
 
-def get_wavefunction_volume_mesh(n, l, m, real=False,  # noqa
-                                 num_pts=50,
-                                 max_opacity=0.2,
-                                 opacity_exp=1.0,
-                                 clip=False):
+def get_wavefunction_volume_mesh(
+        n,
+        l,
+        m,
+        real=False,
+        num_pts=50,
+        max_opacity=0.2,
+        opacity_exp=1.0,
+        clip=False,
+):
     span = (1.5 * n) ** 2
 
     single_ax_array = np.linspace(

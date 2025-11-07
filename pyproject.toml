@@ -13,20 +13,23 @@ classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9"
 ]
 dynamic = ["version", "readme"]
 dependencies = [
-  'numpy',
-  'scipy',
-  'matplotlib',
-  'pyqt6',
-  'pyvista',
-  'pyvistaqt'
+  "numpy",
+  "scipy",
+  "matplotlib",
+  "pyvista",
 ]
 
 [project.urls]
 homepage = "https://github.com/jagerber48/hydrogen_visualization"
+
+[project.optional-dependencies]
+gui = [
+    "pyqt6",
+    "pyvistaqt",
+]
 
 [tool.setuptools.dynamic]
 readme = {file = "README.rst"}
