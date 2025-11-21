@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pyvista as pv
 import matplotlib as mpl
 
-from atomview.atom_wavefunction import (
+from atomview.wavefunction_calc import (
     get_atomic_wavefunction, get_radial_part,
     get_wavefunction_prob_contour_mesh, get_wavefunction_volume_mesh)
 from atomview.utils import complex_to_rgba

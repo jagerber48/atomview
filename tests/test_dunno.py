@@ -2,7 +2,7 @@ import numpy as np
 import pyvista as pv
 
 from src.atomview.plot_atom_wavefunction import get_xyz_arrays, complex_array_to_rgb
-from src.atomview.atom_wavefunction import get_atomic_wavefunction
+from src.atomview.wavefunction_calc import get_atomic_wavefunction
 
 
 (n, l, m) = (3, 1, 0)

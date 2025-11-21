@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pyvista as pv
 
-from atomview.atom_wavefunction import get_wavefunction_prob_contour_mesh
+from atomview.wavefunction_calc import get_wavefunction_prob_contour_mesh
 
 
 def main():
