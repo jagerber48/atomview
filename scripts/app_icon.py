@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pyvista as pv
 
-from atomview.wavefunction_calc import get_wavefunction_prob_contour_mesh
+from atomview.wavefunction_mesh import get_wavefunction_prob_contour_mesh
 
 
 def main():
@@ -11,12 +11,15 @@ def main():
 
     pl = pv.Plotter(off_screen=True)
     pl.set_background('black')
-    pl.add_mesh(mesh, scalars='rgba', rgb=True,
-                smooth_shading=True,
-                specular=1,
-                diffuse=1,
-                ambient=0.3
-                )
+    pl.add_mesh(
+        mesh,
+        scalars='rgba',
+        rgb=True,
+        smooth_shading=True,
+        specular=1,
+        diffuse=1,
+        ambient=0.3,
+    )
     pl.camera.roll -= 20
     pl.show(screenshot=Path(Path.cwd(), 'figures', 'gen_figs',
                             '311_icon'))
