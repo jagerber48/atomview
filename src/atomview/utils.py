@@ -1,6 +1,6 @@
 import numpy as np
 from matplotlib.colors import hsv_to_rgb
-from scipy.special import sph_harm as sph_harm_scipy
+from scipy.special import sph_harm_y as sph_harm_scipy
 from scipy.special import factorial, lpmv
 
 
